@@ -4,27 +4,40 @@ import styles from '../styles/Home.module.css'
 import gsap from 'gsap'
 import { useEffect } from 'react'
 
-const Home = () => {
+const Home = ({ data }) => {
+	const sharedProps = {
+		opacity: 1,
+		delay: 0.5,
+		ease: 'power1.inOut',
+	}
 	useEffect(() => {
 		console.log('Hey mounted!')
 
 		gsap.set('#title, #title a', { x: -100, y: -100, color: 'transparent' })
 		gsap.to('#title', {
+			...sharedProps,
 			x: 0,
 			y: 0,
-			opacity: 1,
 			color: 'black',
 			duration: 1, // seconds
-			delay: 0.5,
-			ease: 'power1.inOut',
 		})
 
 		gsap.to('#title a', {
-			opacity: 1,
-			color: '#e01a1a', // camelCase
+			...sharedProps,
+			color: '#e01a1a',
 			duration: 2, // seconds
-			delay: 0.5,
-			ease: 'power1.inOut',
+		})
+	}, [])
+
+	// another animation
+	useEffect(() => {
+		gsap.set('#message', { x: 100, y: 100, color: 'transparent' })
+		gsap.to('#message', {
+			...sharedProps,
+			x: 0,
+			y: 0,
+			color: 'black',
+			duration: 1, // seconds
 		})
 	}, [])
 
@@ -40,6 +53,9 @@ const Home = () => {
 				<h1 id={`title`} style={{ opacity: 0 }} className={styles.title}>
 					Welcome to <a href="https://nextjs.org">Next.js!</a>
 				</h1>
+				<h2 id={`message`} style={{ opacity: 0 }}>
+					{data.message}
+				</h2>
 			</main>
 
 			<footer className={styles.footer}>
@@ -56,6 +72,22 @@ const Home = () => {
 			</footer>
 		</div>
 	)
+}
+
+export async function getStaticProps() {
+	// our localhost to fetch our api
+	const res = await fetch(`http://localhost:3000/api/hello`)
+	const data = await res.json()
+
+	if (!data) {
+		return {
+			notFound: true,
+		}
+	}
+
+	return {
+		props: { data }, // will be passed to the page component as props
+	}
 }
 
 export default Home

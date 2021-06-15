@@ -1,5 +1,7 @@
 # NextJS + GSAP animation starter
 Learn how to add and use GSAP animation with a NextJS app.
+*The tutorials are under development and coming this summer.*
+
 ### Getting started with the repo
 - Clone the repository, the current starter is on the main branch
 - `yarn` or `npm install` to download the necessary `node_modules`
@@ -8,6 +10,8 @@ Learn how to add and use GSAP animation with a NextJS app.
 #### What you will see
 ![Getting started gid](starter.gif)
 
+### Keep these open is your browser tab
+- [GSAP Cheatsheet](https://greensock.com/cheatsheet/)
 ### References
 - [NextJS](https://nextjs.org/)
 - [Greensock animation library](https://greensock.com/)
