@@ -2,8 +2,8 @@
 Learn how to add and use GSAP animation with a NextJS app.
 ### Getting started with the repo
 - Clone the repository, the current starter is on the main branch
-- `yarn` or `npm install`
-- `yarn dev` or `npm run dev`
+- `yarn` or `npm install` to download the necessary `node_modules`
+- `yarn dev` or `npm run dev` to spin up the development server
 
 #### What you will see
 ![Getting started gid](starter.gif)
