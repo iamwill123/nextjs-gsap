@@ -9,7 +9,7 @@ Learn how to add and use GSAP animation with a NextJS app.
 
 ### How to reproduce this starter
 - `npm init next-app nextjs-blog` to download the necessary NextJS starter blog
-- `npm install gsap` to install the gsap library 
+- `npm install gsap` to install the gsap library
 - ✨
 
 #### What you will see
