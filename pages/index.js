@@ -2,44 +2,30 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import gsap from 'gsap'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import Posts from '../components/posts'
 
 const Home = ({ data }) => {
+	const titleRef = useRef(null)
+
 	const sharedProps = {
 		opacity: 1,
 		delay: 0.5,
 		ease: 'power1.inOut',
 	}
+
 	useEffect(() => {
-		console.log('Hey mounted!')
-
-		gsap.set('#title, #title a', { x: -100, y: -100, color: 'transparent' })
-		gsap.to('#title', {
-			...sharedProps,
-			x: 0,
-			y: 0,
-			color: 'black',
-			duration: 1, // seconds
-		})
-
-		gsap.to('#title a', {
-			...sharedProps,
-			color: '#e01a1a',
-			duration: 2, // seconds
-		})
-	}, [])
-
-	// another animation
-	useEffect(() => {
-		gsap.set('#message', { x: 100, y: 100, color: 'transparent' })
-		gsap.to('#message', {
-			...sharedProps,
-			x: 0,
-			y: 0,
-			color: 'black',
-			duration: 1, // seconds
-		})
-	}, [])
+		if (titleRef?.current) {
+			gsap.set(titleRef?.current, { x: -100, color: 'transparent' })
+			gsap.to(titleRef?.current, {
+				...sharedProps,
+				x: 0,
+				y: 0,
+				color: 'black',
+				duration: 1, // seconds
+			})
+		}
+	}, [titleRef?.current])
 
 	return (
 		<div className={styles.container}>
@@ -50,12 +36,16 @@ const Home = ({ data }) => {
 			</Head>
 
 			<main className={styles.main}>
-				<h1 id={`title`} style={{ opacity: 0 }} className={styles.title}>
+				<h1
+					ref={titleRef}
+					id={`title`}
+					style={{ opacity: 0 }}
+					className={styles.title}
+				>
 					blog.
 				</h1>
-				<h2 id={`message`} style={{ opacity: 0 }}>
-					{data.message}
-				</h2>
+
+				<Posts data={data} />
 			</main>
 
 			<footer className={styles.footer}>
@@ -76,8 +66,8 @@ const Home = ({ data }) => {
 
 export async function getStaticProps() {
 	// our localhost to fetch our api
-	const res = await fetch(`http://localhost:3000/api/hello`)
-	const data = await res.json()
+	const res = await fetch(`http://localhost:3000/api/posts`)
+	const { data } = await res.json()
 
 	if (!data) {
 		return {

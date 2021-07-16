@@ -1,0 +1,64 @@
+[{
+    "id": "1",
+    "date": "Fri Jul 16 2021",
+    "slug": "how-to-dance-upside-down",
+    "tags": ["dance", "how-tos", "upsidedown"],
+    "title": "how to dance upside down",
+    "content": {
+      "text": "some text",
+      "html": "<p>sup</p>"
+    },
+    "coverImage": {
+      "url": "https://images.unsplash.com/photo-1512264815082-9999c2d4894d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+    },
+    "author": {
+      "id": "1",
+      "name": "papa smurf",
+      "picture": {
+        "fileName": "https://en.wikipedia.org/wiki/Papa_Smurf#/media/File:Papasmurf1.jpg"
+      }
+    }
+  },
+  {
+    "id": "2",
+    "date": "Fri Jul 17 2021",
+    "slug": "plant-a-living-thing",
+    "tags": ["how-tos", "planting"],
+    "title": "how to plant something",
+    "content": {
+      "text": "some text",
+      "html": "<p>sup</p>"
+    },
+    "coverImage": {
+      "url": "https://images.unsplash.com/photo-1485841938031-1bf81239b815?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=628&q=80"
+    },
+    "author": {
+      "id": "1",
+      "name": "papa smurf",
+      "picture": {
+        "fileName": "https://en.wikipedia.org/wiki/Papa_Smurf#/media/File:Papasmurf1.jpg"
+      }
+    }
+  },
+  {
+    "id": "3",
+    "date": "Fri Jul 18 2021",
+    "slug": "how-to-bake-brownies",
+    "tags": ["how-tos", "baking", "brownies"],
+    "title": "how to bake brownies",
+    "content": {
+      "text": "some text",
+      "html": "<p>sup</p>"
+    },
+    "coverImage": {
+      "url": "https://images.unsplash.com/photo-1606313564573-104197cf8f91?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80"
+    },
+    "author": {
+      "id": "1",
+      "name": "papa smurf",
+      "picture": {
+        "fileName": "https://en.wikipedia.org/wiki/Papa_Smurf#/media/File:Papasmurf1.jpg"
+      }
+    }
+  }
+]
