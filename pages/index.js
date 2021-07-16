@@ -51,7 +51,7 @@ const Home = ({ data }) => {
 
 			<main className={styles.main}>
 				<h1 id={`title`} style={{ opacity: 0 }} className={styles.title}>
-					Welcome to <a href="https://nextjs.org">Next.js!</a>
+					blog.
 				</h1>
 				<h2 id={`message`} style={{ opacity: 0 }}>
 					{data.message}
