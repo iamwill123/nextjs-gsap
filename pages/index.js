@@ -5,14 +5,15 @@ import gsap from 'gsap'
 import { useEffect, useRef } from 'react'
 import Posts from '../components/posts'
 
+export const sharedProps = {
+	opacity: 1,
+	// stagger: 0.1,
+	// delay: 0.5,
+	ease: 'power1.inOut',
+}
+
 const Home = ({ data }) => {
 	const titleRef = useRef(null)
-
-	const sharedProps = {
-		opacity: 1,
-		delay: 0.5,
-		ease: 'power1.inOut',
-	}
 
 	useEffect(() => {
 		if (titleRef?.current) {

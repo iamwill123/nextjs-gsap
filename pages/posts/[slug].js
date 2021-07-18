@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 // * https://nextjs.org/docs/basic-features/data-fetching#when-should-i-use-getstaticprops
 
 export async function getStaticProps({ params }) {
-	console.log('🚀 ~ file: [slug].js ~ line 7 ~ getStaticProps ~ params', params)
 	const res = await fetch(`http://localhost:3000/api/post/${params.slug}`)
 	const {
 		data: { post },
