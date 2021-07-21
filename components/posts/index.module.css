@@ -36,3 +36,19 @@
 	font-size: 1.25rem;
 	line-height: 1.5;
 }
+
+.title {
+	color: white;
+	font-weight: 200;
+}
+
+.title span {
+	background: black;
+	padding: 0 5px;
+	transition: color 0.15s ease, background 0.15s ease;
+}
+
+.title span:hover {
+	background: white;
+	color: black;
+}

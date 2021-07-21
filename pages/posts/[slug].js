@@ -40,6 +40,7 @@ const Post = ({ post }) => {
 	console.log('🚀 ~ file: [slug].js ~ line 41 ~ Post ~ post', post)
 	const router = useRouter()
 
+	// * todo gsap from animate, and reverse
 	return (
 		<>
 			<h1>Post: {router.query.slug}</h1>

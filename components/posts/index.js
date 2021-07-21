@@ -1,61 +1,108 @@
 import { useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import gsap from 'gsap'
 import styles from './index.module.css'
 import { sharedProps } from '../../pages'
 
 // todo: un-stack posts animation
-const Card = ({ post }) => {
+const Card = ({ post, handleChangePage }) => {
+	// console.log('🚀 ~ file: index.js ~ line 9 ~ Card ~ post', post)
+	const { coverImage } = post
+
 	return (
-		<div className={`${styles.card} card`}>
-			<h3 className="title">
-				<Link href={`/posts/${post.slug}`}>
-					<a>{post.title}</a>
+		<div
+			className={`${styles.card} card`}
+			style={{
+				background: `url(${coverImage.url}) center 10% no-repeat`,
+				backgroundSize: 'cover',
+			}}
+		>
+			<h3 className={styles.title}>
+				{/* nextjs will complain if we remove the href prop */}
+				<Link href={`/posts/${post.slug}`} scroll={false}>
+					{/* we want more control of our page change */}
+					<a onClick={(e) => handleChangePage(e, `/posts/${post.slug}`)}>
+						<span>{post.title}</span>
+					</a>
 				</Link>
 			</h3>
 		</div>
 	)
 }
 
-const Posts = ({ data: { posts } }) => {
+const Posts = ({ data: { posts }, titleTimeline }) => {
+	const router = useRouter()
 	const postsRef = useRef(null)
 
 	if (!posts) return <p>Loading...</p>
 
-	let tl = gsap.timeline({
-		duration: 0.5,
+	let postsTimeline = gsap.timeline({
+		duration: 0.3,
 		defaults: {
-			// children inherit these defaults
-			duration: 0.7,
-			ease: 'none',
+			// * children inherit these defaults
+			duration: 0.5,
+			ease: 'back.out(1.7)',
 		},
 	})
 
+	const handleChangePage = (e, destination) => {
+		e.preventDefault()
+
+		// * reverse the posts animation when we change pages
+		postsTimeline.reverse()
+		setTimeout(() => {
+			titleTimeline.reverse()
+		}, (postsTimeline.duration() / 2) * 1000)
+
+		// * set a timeout to run the duration of our timeline animation
+		const totalTimelineDuration =
+			(postsTimeline.duration() + titleTimeline.duration()) * 1000
+
+		setTimeout(() => {
+			// * access our router manually
+			router.push(destination)
+		}, totalTimelineDuration)
+	}
+
 	useEffect(() => {
 		if (postsRef?.current) {
-			tl.set(postsRef.current, { x: 100, y: 0, color: 'transparent' })
-			tl.set('.card', { yPercent: 0, position: 'absolute' })
+			postsTimeline.set(postsRef.current, {
+				x: 100,
+				y: 0,
+				color: 'transparent',
+			})
+			postsTimeline.set('.card', { yPercent: 0, position: 'absolute' })
+			// * set card zIndex to fix overlap when animating
+			const cardElm = gsap.utils.toArray('.card')
+			cardElm.map((card, i) => {
+				postsTimeline.set(card, {
+					zIndex: -i,
+					opacity: i === 0 ? 1 : 0,
+				})
+			})
 
 			// * 🔎 animate entire posts component
-			tl.to(postsRef.current, {
+			postsTimeline.to(postsRef.current, {
 				...sharedProps,
+				delay: 0.5,
 				x: 0,
 				ease: 'power2.inOut',
 			})
-			tl.to(postsRef.current, {
+			postsTimeline.to(postsRef.current, {
 				...sharedProps,
 				y: -100,
 				ease: 'power1.inOut',
 			})
-			// * 🔎 then animate individual card components
-			// * grab each card element
-			const cardElm = gsap.utils.toArray('.card')
 
+			// * 🔎 then animate individual card components
+			// * 	  grab each card element
 			cardElm.map((card, i) => {
-				tl.to(card, {
-					...sharedProps,
-					ease: 'back.out(1.7)',
-					yPercent: i * 110,
+				postsTimeline.to(card, {
+					// * provide some space btw each card
+					duration: 0.6,
+					yPercent: i * 100,
+					opacity: 1,
 					zIndex: 0,
 				})
 			})
@@ -73,7 +120,7 @@ const Posts = ({ data: { posts } }) => {
 			}}
 		>
 			{posts.map((post, i) => (
-				<Card key={i} post={post} />
+				<Card key={i} post={post} handleChangePage={handleChangePage} />
 			))}
 		</div>
 	)

@@ -1,7 +1,10 @@
+import { useCallback } from 'react'
+import gsap from 'gsap'
 import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function MyApp({ Component, pageProps, router }) {
+	const isRootPage = router.pathname === '/'
+	return <Component {...pageProps} />
 }
 
 export default MyApp
