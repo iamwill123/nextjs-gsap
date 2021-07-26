@@ -45,7 +45,6 @@ const imgDataForBlurring = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZW
 const Layout = ({ children }) => {
 	return Children.map(children, (child) => {
 		const isColumn = child.type.name === 'LayoutCol'
-		const hasClassName = !!child.props.className
 
 		if (child.type === 'string') {
 			return child
@@ -66,11 +65,15 @@ const Layout = ({ children }) => {
 const LayoutCol = ({ children }) => children
 const LayoutRow = ({ children }) => children
 
-const Content = ({ children }) => {
-	return <div className={styles.flexCol}>{children}</div>
-}
+const Content = forwardRef(({ children }, ref) => {
+	return (
+		<div ref={ref} className={styles.flexCol}>
+			{children}
+		</div>
+	)
+})
 
-const Author = ({ author }) => {
+const Author = forwardRef(({ author }, ref) => {
 	const {
 		name,
 		handle,
@@ -78,26 +81,28 @@ const Author = ({ author }) => {
 	} = author
 
 	return (
-		<Layout>
-			<LayoutCol>
-				<Image
-					className={styles.avatar}
-					src={fileName}
-					placeholder={`blur`}
-					blurDataURL={imgDataForBlurring}
-					layout={'fixed'}
-					width={'75px'}
-					height={'75px'}
-				/>
+		<div ref={ref}>
+			<Layout>
+				<LayoutCol style={{ alignItems: 'center' }}>
+					<Image
+						className={styles.avatar}
+						src={fileName}
+						placeholder={`blur`}
+						blurDataURL={imgDataForBlurring}
+						layout={'fixed'}
+						width={'75px'}
+						height={'75px'}
+					/>
 
-				<div>
-					<b>{name}</b>
-				</div>
-				<div style={{ color: 'grey' }}>@{handle}</div>
-			</LayoutCol>
-		</Layout>
+					<div>
+						<b>{name}</b>
+					</div>
+					<div style={{ color: 'grey', wordBreak: 'break-all' }}>@{handle}</div>
+				</LayoutCol>
+			</Layout>
+		</div>
 	)
-}
+})
 
 const ImgHeader = forwardRef(({ coverImage, title }, ref) => {
 	const [coverImgRef, titleRef] = ref
@@ -136,9 +141,13 @@ const ImgHeader = forwardRef(({ coverImage, title }, ref) => {
 		</div>
 	)
 })
+
 const Post = ({ post }) => {
 	const titleRef = useRef(null)
 	const coverImgRef = useRef(null)
+	const contentRef = useRef(null)
+	const avatarRef = useRef(null)
+	const backBtnRef = useRef(null)
 
 	const router = useRouter()
 	const createMarkup = (content) => ({ __html: content })
@@ -153,21 +162,45 @@ const Post = ({ post }) => {
 				.from(titleRef?.current, {
 					duration: 0.5,
 					display: 'none',
-					color: 'black',
 					autoAlpha: 0,
 					delay: 0.25,
 					y: 25,
 					ease: 'power1.in',
 				})
+				.from(avatarRef?.current, {
+					duration: 0.5,
+					autoAlpha: 0,
+					x: -25,
+					ease: `power1.inOut`,
+				})
 				.from(coverImgRef?.current, {
-					duration: 0.4,
+					duration: 0.3,
 					autoAlpha: 0,
 					y: 25,
 					ease: `power1.inOut`,
 				})
+				.from(contentRef?.current, {
+					duration: 0.2,
+					autoAlpha: 0,
+					y: 25,
+					ease: `power1.inOut`,
+				})
+				.from(backBtnRef?.current, {
+					duration: 0.1,
+					autoAlpha: 0,
+					x: -25,
+					ease: `power1.inOut`,
+				})
+
 			postTimeline.play()
 		}
-	}, [titleRef?.current, coverImgRef?.current])
+	}, [
+		avatarRef?.current,
+		backBtnRef?.current,
+		contentRef?.current,
+		coverImgRef?.current,
+		titleRef?.current,
+	])
 
 	// * todo gsap from animate, and reverse
 	return (
@@ -175,9 +208,17 @@ const Post = ({ post }) => {
 			<Layout>
 				<LayoutRow style={{ width: '100%' }}>
 					<Layout>
-						<LayoutCol style={{ width: '20%' }}>
-							<Author author={author} />
-							<div style={{ margin: '2rem auto', width: '100%' }}>
+						<LayoutCol
+							style={{
+								width: '20%',
+								height: '100%',
+								justifyContent: 'space-between',
+								alignItems: 'center',
+								margin: '0 0.5rem',
+							}}
+						>
+							<Author ref={avatarRef} author={author} />
+							<div ref={backBtnRef}>
 								<Link href="/">
 									<a
 										style={{
@@ -200,7 +241,7 @@ const Post = ({ post }) => {
 								date={date}
 								title={title}
 							/>
-							<Content>
+							<Content ref={contentRef}>
 								<div>
 									<div dangerouslySetInnerHTML={createMarkup(content.html)} />
 									<hr />

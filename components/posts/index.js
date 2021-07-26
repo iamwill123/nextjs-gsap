@@ -5,10 +5,8 @@ import gsap from 'gsap'
 import styles from './index.module.css'
 import { sharedProps } from '../../pages'
 
-// todo: un-stack posts animation
 const Card = ({ post, handleChangePage }) => {
-	// console.log('🚀 ~ file: index.js ~ line 9 ~ Card ~ post', post)
-	const { coverImage } = post
+	const { coverImage, title, slug } = post
 
 	return (
 		<div
@@ -20,10 +18,10 @@ const Card = ({ post, handleChangePage }) => {
 		>
 			<h3 className={styles.title}>
 				{/* nextjs will complain if we remove the href prop */}
-				<Link href={`/posts/${post.slug}`} scroll={false}>
+				<Link href={`/posts/${slug}`} scroll={false}>
 					{/* we want more control of our page change */}
-					<a onClick={(e) => handleChangePage(e, `/posts/${post.slug}`)}>
-						<span>{post.title}</span>
+					<a onClick={(e) => handleChangePage(e, `/posts/${slug}`)}>
+						<span>{title}</span>
 					</a>
 				</Link>
 			</h3>
