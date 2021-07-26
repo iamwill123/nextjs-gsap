@@ -1,21 +1,22 @@
 [{
     "id": "1",
     "date": "Fri Jul 16 2021",
-    "slug": "how-to-dance-upside-down",
-    "tags": ["dance", "how-tos", "upsidedown"],
-    "title": "how to dance upside down",
+    "slug": "how-to-pet-a-cat",
+    "tags": ["petting", "how-tos", "cat"],
+    "title": "how to pet a cat",
     "content": {
       "text": "some text",
-      "html": "<p>sup</p>"
+      "html": "<p>Start with a soft chin-scratch. Use your fingertips or fingernails to gently rub the chin, particularly where the jawbone connects to the skull. It's possible the cat will push into your stroke or jut out his/her chin, both signs of enjoyment</p><p>Focus on the area between or behind the ears. Use the pads of your fingers and apply gentle pressure. The base of the ears is another scent-marking spot for cats.</p><p>Pet the cat's cheeks just behind the whiskers. If the cat likes this, s/he may rotate his/her whiskers forward, effectively asking for more.</p><p>Run the back of your hand gently along the side of the face. Once the cat is warmed up, use your middle finger to stroke the cat's 'mustache' (just above the upper lips) while encircling his/her whole face and stroking the top of the head with your thumb. The cat is yours.</p><p>...</p>"
     },
     "coverImage": {
-      "url": "https://images.unsplash.com/photo-1512264815082-9999c2d4894d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+      "url": "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2250&q=80"
     },
     "author": {
       "id": "1",
-      "name": "papa smurf",
+      "handle": "grey-matter",
+      "name": "grey",
       "picture": {
-        "fileName": "https://en.wikipedia.org/wiki/Papa_Smurf#/media/File:Papasmurf1.jpg"
+        "fileName": "https://i.pravatar.cc/300"
       }
     }
   },
@@ -27,16 +28,17 @@
     "title": "how to plant something",
     "content": {
       "text": "some text",
-      "html": "<p>sup</p>"
+      "html": "<p>Seed-starting containers should be clean, measure at least 2-3 inches deep and have drainage holes. They can be plastic pots, cell packs, peat pots, plastic flats, yogurt cups, even eggshells.  As long as they are clean (soak in a 9 parts water to one part household bleach for 10 minutes), the options are endless. You can also buy seed-starting kits, but don't invest a lot of money until you're sure you'll be starting seeds every year. If you start seeds in very small containers or plastic flats, you'll need to transplant seedlings into slightly larger pots once they have their first set of true leaves. Keep in mind that flats and pots take up room, so make sure you have enough sunny space for all the seedlings you start.</p><p>Sow seeds in sterile, seed-starting mix or potting soil available in nurseries and garden centers. Don't use garden soil, it’s too heavy, contains weeds seeds, and possibly, disease organisms. Wet the soil with warm water before filling seed-starting containers.</p><p>You’ll find the proper planting depth on the seed packet. The general rule of thumb is to cover seeds with soil equal to three times their thickness – but be sure to read the seed packet planting instructions carefully. Some seeds, including certain lettuces and snapdragons, need light to germinate and should rest on the soil surface but still be in good contact with moist soil. Gentle tamping after sowing will help. After planting your seeds, use a spray bottle to wet the soil again.</p><p>...</p>"
     },
     "coverImage": {
       "url": "https://images.unsplash.com/photo-1485841938031-1bf81239b815?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=628&q=80"
     },
     "author": {
       "id": "1",
-      "name": "papa smurf",
+      "handle": "BMO",
+      "name": "beemo",
       "picture": {
-        "fileName": "https://en.wikipedia.org/wiki/Papa_Smurf#/media/File:Papasmurf1.jpg"
+        "fileName": "https://i.pravatar.cc/300"
       }
     }
   },
@@ -48,16 +50,17 @@
     "title": "how to bake brownies",
     "content": {
       "text": "some text",
-      "html": "<p>sup</p>"
+      "html": "<p>Preheat oven to 350 degrees F (175 degrees C). Grease and flour an 8-inch square pan.</p><p>In a large saucepan, melt 1/2 cup butter. Remove from heat, and stir in sugar, eggs, and 1 teaspoon vanilla. Beat in 1/3 cup cocoa, 1/2 cup flour, salt, and baking powder. Spread batter into prepared pan.</p><p>Bake in preheated oven for 25 to 30 minutes. Do not overcook.</p><p>To Make Frosting: Combine 3 tablespoons softened butter, 3 tablespoons cocoa, honey, 1 teaspoon vanilla extract, and 1 cup confectioners' sugar. Stir until smooth. Frost brownies while they are still warm.</p><p>Per Serving: 183 calories; protein 1.8g; carbohydrates 25.7g; fat 9g; cholesterol 44.2mg; sodium 109.7mg.</p>"
     },
     "coverImage": {
       "url": "https://images.unsplash.com/photo-1606313564573-104197cf8f91?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80"
     },
     "author": {
       "id": "1",
-      "name": "papa smurf",
+      "handle": "decepticons",
+      "name": "megatron",
       "picture": {
-        "fileName": "https://en.wikipedia.org/wiki/Papa_Smurf#/media/File:Papasmurf1.jpg"
+        "fileName": "https://i.pravatar.cc/300"
       }
     }
   }

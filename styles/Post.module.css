@@ -1,0 +1,46 @@
+.container {
+	min-height: 100vh;
+	padding: 0 0.5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	height: 100vh;
+	max-width: 700px;
+	margin: auto;
+}
+
+.avatar {
+	border-radius: 100%;
+}
+
+.flexCol {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.flexRow {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.tags {
+	color: grey;
+	font-style: italic;
+	font-size: 0.8rem;
+}
+
+.flexRowSpaceBtw {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.coverImg {
+	top: -170px;
+}

@@ -48,21 +48,17 @@ const Posts = ({ data: { posts }, titleTimeline }) => {
 
 	const handleChangePage = (e, destination) => {
 		e.preventDefault()
-
-		// * reverse the posts animation when we change pages
-		postsTimeline.reverse()
-		setTimeout(() => {
-			titleTimeline.reverse()
-		}, (postsTimeline.duration() / 2) * 1000)
-
-		// * set a timeout to run the duration of our timeline animation
-		const totalTimelineDuration =
-			(postsTimeline.duration() + titleTimeline.duration()) * 1000
-
+		const postTLduration = postsTimeline.duration()
+		// * set a timeout to run the duration of our timeline animation (tweak it)
+		const totalTimelineDuration = postTLduration * 800
 		setTimeout(() => {
 			// * access our router manually
 			router.push(destination)
 		}, totalTimelineDuration)
+
+		// * reverse the posts animation when we change pages
+		postsTimeline.reverse()
+		titleTimeline.reverse()
 	}
 
 	useEffect(() => {

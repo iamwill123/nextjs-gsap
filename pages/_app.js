@@ -1,5 +1,3 @@
-import { useCallback } from 'react'
-import gsap from 'gsap'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps, router }) {
