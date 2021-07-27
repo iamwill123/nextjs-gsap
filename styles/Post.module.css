@@ -42,5 +42,11 @@
 }
 
 .coverImg {
-	top: -170px;
+	transform: translateY(-33%);
+}
+
+.backBtn:hover {
+	background: rgba(49, 200, 255, 0.2);
+	color: rgba(0, 0, 0, 0.9);
+	transition: all 500ms;
 }

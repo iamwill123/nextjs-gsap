@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import gsap from 'gsap'
@@ -44,20 +44,23 @@ const Posts = ({ data: { posts }, titleTimeline }) => {
 		},
 	})
 
-	const handleChangePage = (e, destination) => {
-		e.preventDefault()
-		const postTLduration = postsTimeline.duration()
-		// * set a timeout to run the duration of our timeline animation (tweak it)
-		const totalTimelineDuration = postTLduration * 800
-		setTimeout(() => {
-			// * access our router manually
-			router.push(destination)
-		}, totalTimelineDuration)
+	const handleChangePage = useCallback(
+		(e, destination) => {
+			e.preventDefault()
+			const postsTLduration = postsTimeline.duration()
+			// * set a timeout to run the duration of our timeline animation (tweak it)
+			const totalTimelineDuration = postsTLduration * 600
+			setTimeout(() => {
+				// * access our router manually
+				router.push(destination)
+			}, totalTimelineDuration)
 
-		// * reverse the posts animation when we change pages
-		postsTimeline.reverse()
-		titleTimeline.reverse()
-	}
+			// * reverse the posts animation when we change pages
+			postsTimeline.reverse()
+			titleTimeline.reverse()
+		},
+		[postsTimeline, titleTimeline, router]
+	)
 
 	useEffect(() => {
 		if (postsRef?.current) {
@@ -92,13 +95,17 @@ const Posts = ({ data: { posts }, titleTimeline }) => {
 			// * 🔎 then animate individual card components
 			// * 	  grab each card element
 			cardElm.map((card, i) => {
-				postsTimeline.to(card, {
-					// * provide some space btw each card
-					duration: 0.6,
-					yPercent: i * 100,
-					opacity: 1,
-					zIndex: 0,
-				})
+				postsTimeline.to(
+					card,
+					{
+						// * provide some space btw each card
+						duration: 0.6,
+						yPercent: i * 100,
+						opacity: 1,
+						zIndex: 0,
+					},
+					'<'
+				)
 			})
 		}
 	}, [postsRef?.current])

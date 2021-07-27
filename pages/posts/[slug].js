@@ -1,4 +1,4 @@
-import { Children, forwardRef, useEffect, useRef } from 'react'
+import { Children, forwardRef, useCallback, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -110,7 +110,11 @@ const ImgHeader = forwardRef(({ coverImage, title }, ref) => {
 		<div style={{ position: 'relative', width: '100%' }}>
 			<div
 				ref={coverImgRef}
-				style={{ width: '100%', height: '75px', overflow: 'hidden' }}
+				style={{
+					width: '100%',
+					height: '75px',
+					overflow: 'hidden',
+				}}
 			>
 				{/* * Image component https://nextjs.org/docs/api-reference/next/image */}
 				<Image
@@ -159,38 +163,58 @@ const Post = ({ post }) => {
 	useEffect(() => {
 		if (titleRef?.current || coverImgRef?.current) {
 			postTimeline
-				.from(titleRef?.current, {
-					duration: 0.5,
-					display: 'none',
-					autoAlpha: 0,
-					delay: 0.25,
-					y: 25,
-					ease: 'power1.in',
-				})
-				.from(avatarRef?.current, {
-					duration: 0.5,
-					autoAlpha: 0,
-					x: -25,
-					ease: `power1.inOut`,
-				})
-				.from(coverImgRef?.current, {
-					duration: 0.3,
-					autoAlpha: 0,
-					y: 25,
-					ease: `power1.inOut`,
-				})
-				.from(contentRef?.current, {
-					duration: 0.2,
-					autoAlpha: 0,
-					y: 25,
-					ease: `power1.inOut`,
-				})
-				.from(backBtnRef?.current, {
-					duration: 0.1,
-					autoAlpha: 0,
-					x: -25,
-					ease: `power1.inOut`,
-				})
+				.from(
+					titleRef?.current,
+					{
+						duration: 0.5,
+						display: 'none',
+						autoAlpha: 0,
+						delay: 0.25,
+						y: 25,
+						ease: 'power1.in',
+					},
+					'<'
+				)
+				.from(
+					avatarRef?.current,
+					{
+						duration: 0.5,
+						autoAlpha: 0,
+						x: -25,
+						ease: `power1.inOut`,
+					},
+					'<'
+				)
+				.from(
+					coverImgRef?.current,
+					{
+						duration: 0.3,
+						autoAlpha: 0,
+						y: 25,
+						ease: `power1.inOut`,
+					},
+					'<'
+				)
+				.from(
+					contentRef?.current,
+					{
+						duration: 0.2,
+						autoAlpha: 0,
+						y: 25,
+						ease: `power1.inOut`,
+					},
+					'<0.5'
+				)
+				.from(
+					backBtnRef?.current,
+					{
+						duration: 0.1,
+						autoAlpha: 0,
+						x: -25,
+						ease: `power1.inOut`,
+					},
+					'<'
+				)
 
 			postTimeline.play()
 		}
@@ -202,7 +226,19 @@ const Post = ({ post }) => {
 		titleRef?.current,
 	])
 
-	// * todo gsap from animate, and reverse
+	const handleChangePage = useCallback(
+		(e, destination) => {
+			e.preventDefault()
+			const postTLduration = postTimeline.duration()
+			const totalTimelineDuration = postTLduration * 900
+			setTimeout(() => {
+				router.push(destination)
+			}, totalTimelineDuration)
+			postTimeline.reverse()
+		},
+		[postTimeline, router]
+	)
+
 	return (
 		<div className={styles.container}>
 			<Layout>
@@ -221,10 +257,14 @@ const Post = ({ post }) => {
 							<div ref={backBtnRef}>
 								<Link href="/">
 									<a
+										className={styles.backBtn}
+										onClick={(e) => handleChangePage(e, `/`)}
 										style={{
-											fontSize: '0.8rem',
-											padding: '2px',
-											borderBottom: `1px dotted black`,
+											fontSize: '0.9rem',
+											padding: '5px',
+											borderRight: `1px dotted rgba(49, 200, 255, 0.6)`,
+											borderBottom: `1px dotted rgba(49, 200, 255, 0.9)`,
+											transition: 'all 500ms',
 										}}
 									>
 										back
