@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { Children, forwardRef, useCallback, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -81,7 +82,7 @@ const Author = forwardRef(({ author }, ref) => {
 	} = author
 
 	return (
-		<div ref={ref}>
+		<div ref={ref} style={{ position: 'sticky', top: '-1px' }}>
 			<Layout>
 				<LayoutCol style={{ alignItems: 'center' }}>
 					<Image
@@ -129,17 +130,7 @@ const ImgHeader = forwardRef(({ coverImage, title }, ref) => {
 					height={'100%'}
 				/>
 			</div>
-			<h1
-				style={{
-					position: 'absolute',
-					textDecoration: 'underline',
-					fontSize: '2.5rem',
-					zIndex: 1,
-					color: 'white',
-					top: 0,
-				}}
-				ref={titleRef}
-			>
+			<h1 className={styles.title} ref={titleRef}>
 				{title}
 			</h1>
 		</div>
@@ -241,6 +232,18 @@ const Post = ({ post }) => {
 
 	return (
 		<div className={styles.container}>
+			<Head>
+				<title>{title}</title>
+				<meta name="description" content={title} />
+				<link rel="icon" href="/favicon.ico" />
+				<link rel="preconnect" href="https://fonts.googleapis.com" />
+				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+				<link
+					href="https://fonts.googleapis.com/css2?family=Lora&display=swap"
+					rel="stylesheet"
+				/>
+			</Head>
+
 			<Layout>
 				<LayoutRow style={{ width: '100%' }}>
 					<Layout>

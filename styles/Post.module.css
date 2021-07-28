@@ -34,6 +34,20 @@
 	font-size: 0.8rem;
 }
 
+.title {
+	position: absolute;
+	text-decoration: underline;
+	font-size: 2.5rem;
+	z-index: 1;
+	color: white;
+	top: 0;
+	min-width: 200px;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .flexRowSpaceBtw {
 	display: flex;
 	flex-direction: row;
@@ -49,4 +63,14 @@
 	background: rgba(49, 200, 255, 0.2);
 	color: rgba(0, 0, 0, 0.9);
 	transition: all 500ms;
+}
+
+@media (max-width: 600px) {
+	.container {
+		justify-content: flex-start;
+		padding: 0;
+	}
+	.title {
+		font-size: 2rem;
+	}
 }

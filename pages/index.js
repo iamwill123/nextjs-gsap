@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import gsap from 'gsap'
 import { useEffect, useRef } from 'react'
@@ -14,8 +13,8 @@ export const sharedProps = {
 
 const Home = ({ data }) => {
 	const titleRef = useRef(null)
+	const titleTimeline = gsap.timeline()
 
-	let titleTimeline = gsap.timeline()
 	useEffect(() => {
 		if (titleRef?.current) {
 			titleTimeline.set(titleRef?.current, { x: -100, color: 'transparent' })
@@ -34,6 +33,12 @@ const Home = ({ data }) => {
 				<title>NextJS + GSAP</title>
 				<meta name="description" content="NextJS and GSAP app" />
 				<link rel="icon" href="/favicon.ico" />
+				<link rel="preconnect" href="https://fonts.googleapis.com" />
+				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+				<link
+					href="https://fonts.googleapis.com/css2?family=Lora&display=swap"
+					rel="stylesheet"
+				/>
 			</Head>
 
 			<main className={styles.main}>

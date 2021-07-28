@@ -14,6 +14,7 @@ const Card = ({ post, handleChangePage }) => {
 			style={{
 				background: `url(${coverImage.url}) center 10% no-repeat`,
 				backgroundSize: 'cover',
+				// width: 'auto',
 			}}
 		>
 			<h3 className={styles.title}>
