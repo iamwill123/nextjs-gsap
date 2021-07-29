@@ -5,7 +5,7 @@ import gsap from 'gsap'
 import styles from './index.module.css'
 import { sharedProps } from '../../pages'
 
-const Card = ({ post, handleChangePage }) => {
+const Card = ({ post, handleChangePage, index }) => {
 	const { coverImage, title, slug } = post
 
 	return (
@@ -21,7 +21,7 @@ const Card = ({ post, handleChangePage }) => {
 				{/* nextjs will complain if we remove the href prop */}
 				<Link href={`/posts/${slug}`} scroll={false}>
 					{/* we want more control of our page change */}
-					<a onClick={(e) => handleChangePage(e, `/posts/${slug}`)}>
+					<a onClick={(e) => handleChangePage(e, `/posts/${slug}`, index)}>
 						<span>{title}</span>
 					</a>
 				</Link>
@@ -45,9 +45,13 @@ const Posts = ({ data: { posts }, titleTimeline }) => {
 		},
 	})
 
+	const getArrayOfElms = (className) => gsap.utils.toArray(className)
+
 	const handleChangePage = useCallback(
-		(e, destination) => {
+		(e, destination, index) => {
 			e.preventDefault()
+			const currentCardElm = getArrayOfElms('.card')[index]
+
 			const postsTLduration = postsTimeline.duration()
 			// * set a timeout to run the duration of our timeline animation (tweak it)
 			const totalTimelineDuration = postsTLduration * 600
@@ -72,7 +76,7 @@ const Posts = ({ data: { posts }, titleTimeline }) => {
 			})
 			postsTimeline.set('.card', { yPercent: 0, position: 'absolute' })
 			// * set card zIndex to fix overlap when animating
-			const cardElm = gsap.utils.toArray('.card')
+			const cardElm = getArrayOfElms('.card')
 			cardElm.map((card, i) => {
 				postsTimeline.set(card, {
 					zIndex: -i,
@@ -122,7 +126,12 @@ const Posts = ({ data: { posts }, titleTimeline }) => {
 			}}
 		>
 			{posts.map((post, i) => (
-				<Card key={i} post={post} handleChangePage={handleChangePage} />
+				<Card
+					key={i}
+					post={post}
+					handleChangePage={handleChangePage}
+					index={i}
+				/>
 			))}
 		</div>
 	)
