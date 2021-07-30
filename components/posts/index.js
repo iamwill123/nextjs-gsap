@@ -106,7 +106,7 @@ const Posts = ({ data: { posts }, titleTimeline }) => {
 						// * provide some space btw each card
 						duration: 0.6,
 						yPercent: i * 100,
-						opacity: 1,
+						opacity: 0.9,
 						zIndex: 0,
 					},
 					'<'
