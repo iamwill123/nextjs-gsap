@@ -74,9 +74,13 @@ const Home = ({ data }) => {
 	)
 }
 
+const dev = process.env.NODE_ENV !== 'production'
+
 export async function getStaticProps() {
-	// our localhost to fetch our api
-	const res = await fetch(`http://localhost:3000/api/hello`)
+	const host = dev ? 'http://localhost:3000' : `https://nextjs-gsap.vercel.app"`
+
+	// * our localhost to fetch our api
+	const res = await fetch(`${host}/api/hello`)
 	const data = await res.json()
 
 	if (!data) {
