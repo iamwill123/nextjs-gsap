@@ -73,6 +73,7 @@ const Content = forwardRef(({ children }, ref) => {
 		</div>
 	)
 })
+Content.displayName = 'Content'
 
 const Author = forwardRef(({ author }, ref) => {
 	const {
@@ -86,6 +87,7 @@ const Author = forwardRef(({ author }, ref) => {
 			<Layout>
 				<LayoutCol style={{ alignItems: 'center' }}>
 					<Image
+						alt={name}
 						className={styles.avatar}
 						src={fileName}
 						placeholder={`blur`}
@@ -104,6 +106,7 @@ const Author = forwardRef(({ author }, ref) => {
 		</div>
 	)
 })
+Author.displayName = 'Author'
 
 const ImgHeader = forwardRef(({ coverImage, title }, ref) => {
 	const [coverImgRef, titleRef] = ref
@@ -136,6 +139,7 @@ const ImgHeader = forwardRef(({ coverImage, title }, ref) => {
 		</div>
 	)
 })
+ImgHeader.displayName = 'ImgHeader'
 
 const Post = ({ post }) => {
 	const titleRef = useRef(null)

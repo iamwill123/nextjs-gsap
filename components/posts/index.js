@@ -29,12 +29,11 @@ const Card = ({ post, handleChangePage, index }) => {
 		</div>
 	)
 }
+Card.displayName = 'Card'
 
 const Posts = ({ data: { posts }, titleTimeline }) => {
 	const router = useRouter()
 	const postsRef = useRef(null)
-
-	if (!posts) return <p>Loading...</p>
 
 	let postsTimeline = gsap.timeline({
 		duration: 0.3,
@@ -54,7 +53,9 @@ const Posts = ({ data: { posts }, titleTimeline }) => {
 				y: 0,
 				color: 'transparent',
 			})
+
 			postsTimeline.set('.card', { yPercent: 0, position: 'absolute' })
+
 			// * set card zIndex to fix overlap when animating
 			const cardElm = getArrayOfElms('.card')
 			cardElm.map((card, i) => {
@@ -93,12 +94,14 @@ const Posts = ({ data: { posts }, titleTimeline }) => {
 				)
 			})
 		}
-	}, [postsRef?.current])
+	}, [postsRef?.current, postsTimeline])
 
 	const handleChangePage = useCallback(
 		(e, destination, index) => {
 			e.preventDefault()
-			const currentCardElm = getArrayOfElms('.card')[index]
+
+			// * not being used yet
+			// const currentCardElm = getArrayOfElms('.card')[index]
 
 			const postsTLduration = postsTimeline.duration()
 			// * set a timeout to run the duration of our timeline animation (tweak it)
