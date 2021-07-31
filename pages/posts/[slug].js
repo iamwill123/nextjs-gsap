@@ -7,6 +7,7 @@ import gsap from 'gsap'
 import styles from '../../styles/Post.module.css'
 import { hostUrl } from '../../utils/envCheck'
 import { imgDataForBlurring } from '../../utils/images/imgData'
+import posts from '../../data/posts.json'
 
 // * 📚 recommended read:
 // * https://nextjs.org/docs/basic-features/data-fetching#when-should-i-use-getstaticprops
@@ -28,10 +29,12 @@ export async function getStaticProps({ params }) {
 // * https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
 
 export async function getStaticPaths() {
-	const res = await fetch(`${hostUrl}/api/posts`)
-	const {
-		data: { posts },
-	} = await res.json()
+	// * import our posts data directly, use fetch for external data
+	// * https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
+	// const res = await fetch(`${hostUrl}/api/posts`)
+	// const {
+	// 	data: { posts },
+	// } = await res.json()
 
 	const pathParams = posts.map(({ slug }) => ({
 		params: { slug },
