@@ -5,12 +5,14 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import gsap from 'gsap'
 import styles from '../../styles/Post.module.css'
+import { hostUrl } from '../../utils/envCheck'
+import { imgDataForBlurring } from '../../utils/images/imgData'
 
 // * 📚 recommended read:
 // * https://nextjs.org/docs/basic-features/data-fetching#when-should-i-use-getstaticprops
 
 export async function getStaticProps({ params }) {
-	const res = await fetch(`http://localhost:3000/api/post/${params.slug}`)
+	const res = await fetch(`${hostUrl}/api/post/${params.slug}`)
 	const {
 		data: { post },
 	} = await res.json()
@@ -26,7 +28,7 @@ export async function getStaticProps({ params }) {
 // * https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
 
 export async function getStaticPaths() {
-	const res = await fetch(`http://localhost:3000/api/posts`)
+	const res = await fetch(`${hostUrl}/api/posts`)
 	const {
 		data: { posts },
 	} = await res.json()
@@ -40,8 +42,6 @@ export async function getStaticPaths() {
 		fallback: false,
 	}
 }
-
-const imgDataForBlurring = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=`
 
 const Layout = ({ children }) => {
 	return Children.map(children, (child) => {
