@@ -77,15 +77,15 @@ const Home = ({ data }) => {
 const dev = process.env.NODE_ENV !== 'production'
 
 export async function getStaticProps() {
-	const host = dev ? 'http://localhost:3000' : `https://nextjs-gsap.vercel.app`
-	let data
+	// const host = dev ? 'http://localhost:3000' : `https://nextjs-gsap.vercel.app`
+	let data = { message: '🤖 "Sup"' }
 
-	try {
-		const res = await fetch(`${host}/api/hello`)
-		data = await res.json()
-	} catch (error) {
-		console.log('🚀 ~ file: index.js ~ line 93 ~ getStaticProps ~ error', error)
-	}
+	// try {
+	// 	const res = await fetch(`${host}/api/hello`)
+	// 	data = await res.json()
+	// } catch (error) {
+	// 	console.log('🚀 ~ file: index.js ~ line 93 ~ getStaticProps ~ error', error)
+	// }
 
 	if (!data) {
 		return {
