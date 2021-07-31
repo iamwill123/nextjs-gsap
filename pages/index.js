@@ -77,18 +77,21 @@ const Home = ({ data }) => {
 const dev = process.env.NODE_ENV !== 'production'
 
 export async function getStaticProps() {
-	const host = dev ? 'http://localhost:3000' : `https://nextjs-gsap.vercel.app"`
+	const host = dev ? 'http://localhost:3000' : `https://nextjs-gsap.vercel.app`
+	let data
 
-	// * our localhost to fetch our api
-	const res = await fetch(`${host}/api/hello`)
-	const data = await res.json()
+	try {
+		const res = await fetch(`${host}/api/hello`)
+		data = await res.json()
+	} catch (error) {
+		console.log('🚀 ~ file: index.js ~ line 93 ~ getStaticProps ~ error', error)
+	}
 
 	if (!data) {
 		return {
 			notFound: true,
 		}
 	}
-
 	return {
 		props: { data, fallback: false }, // will be passed to the page component as props
 	}
