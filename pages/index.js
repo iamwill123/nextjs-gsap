@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 import gsap from 'gsap'
 import { useEffect, useRef } from 'react'
 import Posts from '../components/posts'
-import { hostUrl } from '../utils/envCheck'
+import { hostUrl, isDev } from '../utils/envCheck'
 
 export const sharedProps = {
 	opacity: 1,
@@ -64,7 +64,10 @@ const Home = ({ data }) => {
 
 export async function getStaticProps() {
 	// * when hosting on vercel, you will have to update your production link ⬇
-	const res = await fetch(`${hostUrl}/api/posts`)
+	const res = isDev
+		? await fetch(`${hostUrl}/api/posts`)
+		: await fetch(`https://nextjs-gsap.vercel.app/api/posts`)
+
 	const { data } = await res.json()
 
 	if (!data) {

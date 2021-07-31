@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import gsap from 'gsap'
 import styles from '../../styles/Post.module.css'
-import { hostUrl } from '../../utils/envCheck'
+import { hostUrl, isDev } from '../../utils/envCheck'
 import { imgDataForBlurring } from '../../utils/images/imgData'
 import posts from '../../data/posts.json'
 
@@ -13,7 +13,10 @@ import posts from '../../data/posts.json'
 // * https://nextjs.org/docs/basic-features/data-fetching#when-should-i-use-getstaticprops
 
 export async function getStaticProps({ params }) {
-	const res = await fetch(`${hostUrl}/api/post/${params.slug}`)
+	const res = isDev
+		? await fetch(`${hostUrl}/api/post/${params.slug}`)
+		: await fetch(`https://nextjs-gsap.vercel.app/api/post/${params.slug}`)
+
 	const {
 		data: { post },
 	} = await res.json()
@@ -29,7 +32,7 @@ export async function getStaticProps({ params }) {
 // * https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
 
 export async function getStaticPaths() {
-	// * import our posts data directly, use fetch for external data
+	// * import our posts data directly (alt), use fetch for external data
 	// * https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
 	// const res = await fetch(`${hostUrl}/api/posts`)
 	// const {
