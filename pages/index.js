@@ -26,7 +26,7 @@ const Home = ({ data }) => {
 				duration: 0.5, // seconds
 			})
 		}
-	}, [titleRef?.current])
+	}, [titleRef?.current, titleTimeline])
 
 	return (
 		<div className={styles.container}>
@@ -77,5 +77,7 @@ export async function getStaticProps() {
 		props: { data, fallback: false }, // will be passed to the page component as props
 	}
 }
+
+Home.displayName = 'Home'
 
 export default Home

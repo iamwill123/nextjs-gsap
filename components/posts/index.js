@@ -47,26 +47,6 @@ const Posts = ({ data: { posts }, titleTimeline }) => {
 
 	const getArrayOfElms = (className) => gsap.utils.toArray(className)
 
-	const handleChangePage = useCallback(
-		(e, destination, index) => {
-			e.preventDefault()
-			const currentCardElm = getArrayOfElms('.card')[index]
-
-			const postsTLduration = postsTimeline.duration()
-			// * set a timeout to run the duration of our timeline animation (tweak it)
-			const totalTimelineDuration = postsTLduration * 600
-			setTimeout(() => {
-				// * access our router manually
-				router.push(destination)
-			}, totalTimelineDuration)
-
-			// * reverse the posts animation when we change pages
-			postsTimeline.reverse()
-			titleTimeline.reverse()
-		},
-		[postsTimeline, titleTimeline, router]
-	)
-
 	useEffect(() => {
 		if (postsRef?.current) {
 			postsTimeline.set(postsRef.current, {
@@ -114,6 +94,26 @@ const Posts = ({ data: { posts }, titleTimeline }) => {
 			})
 		}
 	}, [postsRef?.current])
+
+	const handleChangePage = useCallback(
+		(e, destination, index) => {
+			e.preventDefault()
+			const currentCardElm = getArrayOfElms('.card')[index]
+
+			const postsTLduration = postsTimeline.duration()
+			// * set a timeout to run the duration of our timeline animation (tweak it)
+			const totalTimelineDuration = postsTLduration * 600
+			setTimeout(() => {
+				// * access our router manually
+				router.push(destination)
+			}, totalTimelineDuration)
+
+			// * reverse the posts animation when we change pages
+			postsTimeline.reverse()
+			titleTimeline.reverse()
+		},
+		[postsTimeline, titleTimeline, router]
+	)
 
 	return (
 		<div

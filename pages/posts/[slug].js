@@ -215,6 +215,7 @@ const Post = ({ post }) => {
 		contentRef?.current,
 		coverImgRef?.current,
 		titleRef?.current,
+		postTimeline,
 	])
 
 	const handleChangePage = useCallback(
@@ -312,5 +313,7 @@ const Post = ({ post }) => {
 		</div>
 	)
 }
+
+Post.displayName = 'Post'
 
 export default Post
