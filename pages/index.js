@@ -77,6 +77,7 @@ const Home = ({ data }) => {
 const dev = process.env.NODE_ENV !== 'production'
 
 export async function getStaticProps() {
+	// * when hosting on vercel, you will have to update your production link ⬇
 	const host = dev ? 'http://localhost:3000' : `https://nextjs-gsap.vercel.app`
 	let data
 
