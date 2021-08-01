@@ -12,6 +12,7 @@
 
 .avatar {
 	border-radius: 100%;
+	background: rgba(49, 200, 255, 0.2);
 }
 
 .flexCol {

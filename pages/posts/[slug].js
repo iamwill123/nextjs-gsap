@@ -1,16 +1,29 @@
 import Head from 'next/head'
-import { Children, forwardRef, useCallback, useEffect, useRef } from 'react'
+import {
+	cloneElement,
+	Children,
+	forwardRef,
+	useCallback,
+	useEffect,
+	useRef,
+} from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import gsap from 'gsap'
 import styles from '../../styles/Post.module.css'
+import { hostUrl, isDev } from '../../utils/envCheck'
+import { imgDataForBlurring } from '../../utils/images/imgData'
+import posts from '../../data/posts.json'
 
 // * 📚 recommended read:
 // * https://nextjs.org/docs/basic-features/data-fetching#when-should-i-use-getstaticprops
 
 export async function getStaticProps({ params }) {
-	const res = await fetch(`http://localhost:3000/api/post/${params.slug}`)
+	const res = isDev
+		? await fetch(`${hostUrl}/api/post/${params.slug}`)
+		: await fetch(`https://nextjs-gsap.vercel.app/api/post/${params.slug}`)
+
 	const {
 		data: { post },
 	} = await res.json()
@@ -26,10 +39,12 @@ export async function getStaticProps({ params }) {
 // * https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
 
 export async function getStaticPaths() {
-	const res = await fetch(`http://localhost:3000/api/posts`)
-	const {
-		data: { posts },
-	} = await res.json()
+	// * import our posts data directly (alt), use fetch for external data
+	// * https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
+	// const res = await fetch(`${hostUrl}/api/posts`)
+	// const {
+	// 	data: { posts },
+	// } = await res.json()
 
 	const pathParams = posts.map(({ slug }) => ({
 		params: { slug },
@@ -41,30 +56,19 @@ export async function getStaticPaths() {
 	}
 }
 
-const imgDataForBlurring = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAwIiBoZWlnaHQ9IjQ3NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=`
+const LayoutCol = (props) => (
+	<div className={`${styles.flexCol}`} {...props}>
+		{props.children}
+	</div>
+)
+LayoutCol.displayName = LayoutCol
 
-const Layout = ({ children }) => {
-	return Children.map(children, (child) => {
-		const isColumn = child.type.name === 'LayoutCol'
-
-		if (child.type === 'string') {
-			return child
-		}
-
-		return isColumn ? (
-			<div className={`${styles.flexCol}`} {...child.props}>
-				{child}
-			</div>
-		) : (
-			<div className={`${styles.flexRow}`} {...child.props}>
-				{child}
-			</div>
-		)
-	})
-}
-
-const LayoutCol = ({ children }) => children
-const LayoutRow = ({ children }) => children
+const LayoutRow = (props) => (
+	<div className={`${styles.flexRow}`} {...props}>
+		{props.children}
+	</div>
+)
+LayoutRow.displayName = LayoutRow
 
 const Content = forwardRef(({ children }, ref) => {
 	return (
@@ -73,6 +77,7 @@ const Content = forwardRef(({ children }, ref) => {
 		</div>
 	)
 })
+Content.displayName = 'Content'
 
 const Author = forwardRef(({ author }, ref) => {
 	const {
@@ -83,27 +88,27 @@ const Author = forwardRef(({ author }, ref) => {
 
 	return (
 		<div ref={ref} style={{ position: 'sticky', top: '-1px' }}>
-			<Layout>
-				<LayoutCol style={{ alignItems: 'center' }}>
-					<Image
-						className={styles.avatar}
-						src={fileName}
-						placeholder={`blur`}
-						blurDataURL={imgDataForBlurring}
-						layout={'fixed'}
-						width={'75px'}
-						height={'75px'}
-					/>
+			<LayoutCol style={{ alignItems: 'center' }}>
+				<Image
+					alt={name}
+					className={styles.avatar}
+					src={fileName}
+					placeholder={`blur`}
+					blurDataURL={imgDataForBlurring}
+					layout={'fixed'}
+					width={'75px'}
+					height={'75px'}
+				/>
 
-					<div>
-						<b>{name}</b>
-					</div>
-					<div style={{ color: 'grey', wordBreak: 'break-all' }}>@{handle}</div>
-				</LayoutCol>
-			</Layout>
+				<div>
+					<b>{name}</b>
+				</div>
+				<div style={{ color: 'grey', wordBreak: 'break-all' }}>@{handle}</div>
+			</LayoutCol>
 		</div>
 	)
 })
+Author.displayName = 'Author'
 
 const ImgHeader = forwardRef(({ coverImage, title }, ref) => {
 	const [coverImgRef, titleRef] = ref
@@ -136,6 +141,7 @@ const ImgHeader = forwardRef(({ coverImage, title }, ref) => {
 		</div>
 	)
 })
+ImgHeader.displayName = 'ImgHeader'
 
 const Post = ({ post }) => {
 	const titleRef = useRef(null)
@@ -215,6 +221,7 @@ const Post = ({ post }) => {
 		contentRef?.current,
 		coverImgRef?.current,
 		titleRef?.current,
+		postTimeline,
 	])
 
 	const handleChangePage = useCallback(
@@ -248,69 +255,66 @@ const Post = ({ post }) => {
 				/>
 			</Head>
 
-			<Layout>
-				<LayoutRow style={{ width: '100%' }}>
-					<Layout>
-						<LayoutCol
-							style={{
-								width: '20%',
-								height: '100%',
-								justifyContent: 'space-between',
-								alignItems: 'center',
-								margin: '0 0.5rem',
-							}}
-						>
-							<Author ref={avatarRef} author={author} />
-							<div ref={backBtnRef}>
-								<Link href="/">
-									<a
-										className={styles.backBtn}
-										onClick={(e) => handleChangePage(e, `/`)}
-										style={{
-											fontSize: '0.9rem',
-											padding: '5px',
-											borderRight: `1px dotted rgba(49, 200, 255, 0.6)`,
-											borderBottom: `1px dotted rgba(49, 200, 255, 0.9)`,
-											transition: 'all 500ms',
-										}}
-									>
-										back
-									</a>
-								</Link>
-							</div>
-						</LayoutCol>
-					</Layout>
-					<Layout>
-						<LayoutCol style={{ width: '80%' }}>
-							<ImgHeader
-								ref={[coverImgRef, titleRef]}
-								coverImage={coverImage}
-								date={date}
-								title={title}
-							/>
-							<Content ref={contentRef}>
+			<LayoutRow style={{ width: '100%' }}>
+				<LayoutCol
+					style={{
+						width: '20%',
+						height: '100%',
+						justifyContent: 'space-between',
+						alignItems: 'center',
+						margin: '0 0.5rem',
+					}}
+				>
+					<Author ref={avatarRef} author={author} />
+					<div ref={backBtnRef}>
+						<Link href="/">
+							<a
+								className={styles.backBtn}
+								onClick={(e) => handleChangePage(e, `/`)}
+								style={{
+									fontSize: '0.9rem',
+									padding: '5px',
+									borderRight: `1px dotted rgba(49, 200, 255, 0.6)`,
+									borderBottom: `1px dotted rgba(49, 200, 255, 0.9)`,
+									transition: 'all 500ms',
+								}}
+							>
+								back
+							</a>
+						</Link>
+					</div>
+				</LayoutCol>
+
+				<LayoutCol style={{ width: '80%' }}>
+					<ImgHeader
+						ref={[coverImgRef, titleRef]}
+						coverImage={coverImage}
+						date={date}
+						title={title}
+					/>
+					<Content ref={contentRef}>
+						<div>
+							<div dangerouslySetInnerHTML={createMarkup(content.html)} />
+							<hr />
+							<div className={styles.flexRowSpaceBtw}>
+								<i style={{ fontSize: '0.8rem' }}>{date}</i>
 								<div>
-									<div dangerouslySetInnerHTML={createMarkup(content.html)} />
-									<hr />
-									<div className={styles.flexRowSpaceBtw}>
-										<i style={{ fontSize: '0.8rem' }}>{date}</i>
-										<div>
-											{tags.map((tag, i) => (
-												<span className={styles.tags} key={i}>
-													{' '}
-													#{tag}
-												</span>
-											))}
-										</div>
-									</div>
+									{tags.map((tag, i) => (
+										<span className={styles.tags} key={i}>
+											{' '}
+											#{tag}
+										</span>
+									))}
 								</div>
-							</Content>
-						</LayoutCol>
-					</Layout>
-				</LayoutRow>
-			</Layout>
+							</div>
+						</div>
+					</Content>
+				</LayoutCol>
+			</LayoutRow>
 		</div>
 	)
 }
+
+Post.displayName = 'Post'
 
 export default Post

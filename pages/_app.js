@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import { Svg as SvgBackground } from '../components/svg'
 
 function MyApp({ Component, pageProps, router }) {
-	// * isRootPage => does nothing right now
+	// * isRootPage => does nothing right meow
 	const isRootPage = router.pathname === '/'
 	console.log('🚀 ~ file: _app.js ~ line 7 ~ MyApp ~ isRootPage', isRootPage)
 

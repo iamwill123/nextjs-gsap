@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.css'
 import gsap from 'gsap'
 import { useEffect, useRef } from 'react'
 import Posts from '../components/posts'
+import { hostUrl, isDev } from '../utils/envCheck'
 
 export const sharedProps = {
 	opacity: 1,
@@ -25,7 +26,7 @@ const Home = ({ data }) => {
 				duration: 0.5, // seconds
 			})
 		}
-	}, [titleRef?.current])
+	}, [titleRef?.current, titleTimeline])
 
 	return (
 		<div className={styles.container}>
@@ -62,8 +63,11 @@ const Home = ({ data }) => {
 }
 
 export async function getStaticProps() {
-	// our localhost to fetch our api
-	const res = await fetch(`http://localhost:3000/api/posts`)
+	// * when hosting on vercel, you will have to update your production link ⬇
+	const res = isDev
+		? await fetch(`${hostUrl}/api/posts`)
+		: await fetch(`https://nextjs-gsap.vercel.app/api/posts`)
+
 	const { data } = await res.json()
 
 	if (!data) {
@@ -73,8 +77,10 @@ export async function getStaticProps() {
 	}
 
 	return {
-		props: { data }, // will be passed to the page component as props
+		props: { data, fallback: false }, // will be passed to the page component as props
 	}
 }
+
+Home.displayName = 'Home'
 
 export default Home
