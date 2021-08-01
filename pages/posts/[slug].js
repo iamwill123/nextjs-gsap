@@ -68,9 +68,13 @@ const Layout = ({ children }) => {
 		)
 	})
 }
+Layout.displayName = Layout
 
 const LayoutCol = ({ children }) => children
+LayoutCol.displayName = LayoutCol
+
 const LayoutRow = ({ children }) => children
+LayoutRow.displayName = LayoutRow
 
 const Content = forwardRef(({ children }, ref) => {
 	return (
