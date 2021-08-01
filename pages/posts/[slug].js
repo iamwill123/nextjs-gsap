@@ -50,6 +50,7 @@ export async function getStaticPaths() {
 }
 
 const Layout = ({ children }) => {
+	if (!children) return null
 	return Children.map(children, (child) => {
 		const isColumn = child.type.name === 'LayoutCol'
 
