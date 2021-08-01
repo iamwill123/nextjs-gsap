@@ -1,12 +1,5 @@
 import Head from 'next/head'
-import {
-	cloneElement,
-	Children,
-	forwardRef,
-	useCallback,
-	useEffect,
-	useRef,
-} from 'react'
+import { forwardRef, useCallback, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
