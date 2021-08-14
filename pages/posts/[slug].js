@@ -1,12 +1,5 @@
 import Head from 'next/head'
-import {
-	cloneElement,
-	Children,
-	forwardRef,
-	useCallback,
-	useEffect,
-	useRef,
-} from 'react'
+import { forwardRef, useCallback, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -143,6 +136,26 @@ const ImgHeader = forwardRef(({ coverImage, title }, ref) => {
 })
 ImgHeader.displayName = 'ImgHeader'
 
+const ReplayHelperBtn = ({ fn }) => {
+	return (
+		<div
+			style={{
+				position: 'fixed',
+				top: '2%',
+				right: '2%',
+			}}
+		>
+			<div
+				title={`re-play the animation`}
+				className={styles.replayBtn}
+				onClick={() => fn()}
+			>
+				re-play
+			</div>
+		</div>
+	)
+}
+
 const Post = ({ post }) => {
 	const titleRef = useRef(null)
 	const coverImgRef = useRef(null)
@@ -237,6 +250,13 @@ const Post = ({ post }) => {
 		[postTimeline, router]
 	)
 
+	// * replay helper for tutorial
+	const replayAnim = useCallback(() => {
+		const play = () => postTimeline.play()
+		postTimeline.reverse().then(play)
+	}, [postTimeline])
+	// * helper end
+
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -311,6 +331,7 @@ const Post = ({ post }) => {
 					</Content>
 				</LayoutCol>
 			</LayoutRow>
+			<ReplayHelperBtn fn={replayAnim} />
 		</div>
 	)
 }
