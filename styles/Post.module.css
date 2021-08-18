@@ -66,19 +66,6 @@
 	transition: all 500ms;
 }
 
-.replayBtn {
-	font-size: 0.8rem;
-	padding: 4px;
-	transition: all 500ms;
-	border: 1px dotted rgba(193, 49, 255, 0.8);
-	cursor: pointer;
-}
-.replayBtn:hover {
-	background: rgba(193, 49, 255, 0.7);
-	color: white;
-	transition: all 500ms;
-}
-
 @media (max-width: 600px) {
 	.container {
 		justify-content: flex-start;

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import gsap from 'gsap'
 import styles from './index.module.css'
 import { sharedProps } from '../../pages'
+import { ReplayHelperBtn } from '../helpers'
 
 const Card = ({ post, handleChangePage, index }) => {
 	const { coverImage, title, slug } = post
@@ -119,24 +120,32 @@ const Posts = ({ data: { posts }, titleTimeline }) => {
 	)
 
 	return (
-		<div
-			ref={postsRef}
-			className={styles.posts}
-			style={{
-				opacity: 0,
-				position: 'relative',
-				width: '300px',
-			}}
-		>
-			{posts.map((post, i) => (
-				<Card
-					key={i}
-					post={post}
-					handleChangePage={handleChangePage}
-					index={i}
-				/>
-			))}
-		</div>
+		<>
+			<div
+				ref={postsRef}
+				className={styles.posts}
+				style={{
+					opacity: 0,
+					position: 'relative',
+					width: '300px',
+				}}
+			>
+				{posts.map((post, i) => (
+					<Card
+						key={i}
+						post={post}
+						handleChangePage={handleChangePage}
+						index={i}
+					/>
+				))}
+			</div>
+			<ReplayHelperBtn
+				timelines={[
+					{ name: 'title', timeline: titleTimeline },
+					{ name: 'posts', timeline: postsTimeline },
+				]}
+			/>
+		</>
 	)
 }
 

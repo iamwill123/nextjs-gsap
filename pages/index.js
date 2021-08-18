@@ -14,7 +14,7 @@ export const sharedProps = {
 
 const Home = ({ data }) => {
 	const titleRef = useRef(null)
-	const titleTimeline = gsap.timeline()
+	const titleTimeline = gsap.timeline().addLabel('tl-title')
 
 	useEffect(() => {
 		if (titleRef?.current) {

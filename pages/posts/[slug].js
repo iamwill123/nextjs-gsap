@@ -8,6 +8,7 @@ import styles from '../../styles/Post.module.css'
 import { hostUrl, isDev } from '../../utils/envCheck'
 import { imgDataForBlurring } from '../../utils/images/imgData'
 import posts from '../../data/posts.json'
+import { ReplayHelperBtn } from '../../components/helpers'
 
 // * 📚 recommended read:
 // * https://nextjs.org/docs/basic-features/data-fetching#when-should-i-use-getstaticprops
@@ -136,26 +137,6 @@ const ImgHeader = forwardRef(({ coverImage, title }, ref) => {
 })
 ImgHeader.displayName = 'ImgHeader'
 
-const ReplayHelperBtn = ({ fn }) => {
-	return (
-		<div
-			style={{
-				position: 'fixed',
-				top: '2%',
-				right: '2%',
-			}}
-		>
-			<div
-				title={`re-play the animation`}
-				className={styles.replayBtn}
-				onClick={() => fn()}
-			>
-				re-play
-			</div>
-		</div>
-	)
-}
-
 const Post = ({ post }) => {
 	const titleRef = useRef(null)
 	const coverImgRef = useRef(null)
@@ -250,13 +231,6 @@ const Post = ({ post }) => {
 		[postTimeline, router]
 	)
 
-	// * replay helper for tutorial
-	const replayAnim = useCallback(() => {
-		const play = () => postTimeline.play()
-		postTimeline.reverse().then(play)
-	}, [postTimeline])
-	// * helper end
-
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -331,7 +305,7 @@ const Post = ({ post }) => {
 					</Content>
 				</LayoutCol>
 			</LayoutRow>
-			<ReplayHelperBtn fn={replayAnim} />
+			<ReplayHelperBtn timelines={[{ name: 'post', timeline: postTimeline }]} />
 		</div>
 	)
 }
