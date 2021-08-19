@@ -4,7 +4,7 @@ import Link from 'next/link'
 import gsap from 'gsap'
 import styles from './index.module.css'
 import { sharedProps } from '../../pages'
-import { ReplayHelperBtn } from '../helpers'
+// import { ReplayHelperBtn } from '../helpers'
 
 const Card = ({ post, handleChangePage, index }) => {
 	const { coverImage, title, slug } = post
@@ -139,12 +139,12 @@ const Posts = ({ data: { posts }, titleTimeline }) => {
 					/>
 				))}
 			</div>
-			<ReplayHelperBtn
+			{/* <ReplayHelperBtn
 				timelines={[
 					{ name: 'title', timeline: titleTimeline },
 					{ name: 'posts', timeline: postsTimeline },
 				]}
-			/>
+			/> */}
 		</>
 	)
 }

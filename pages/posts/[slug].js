@@ -8,7 +8,7 @@ import styles from '../../styles/Post.module.css'
 import { hostUrl, isDev } from '../../utils/envCheck'
 import { imgDataForBlurring } from '../../utils/images/imgData'
 import posts from '../../data/posts.json'
-import { ReplayHelperBtn } from '../../components/helpers'
+// import { ReplayHelperBtn } from '../../components/helpers'
 
 // * 📚 recommended read:
 // * https://nextjs.org/docs/basic-features/data-fetching#when-should-i-use-getstaticprops
@@ -305,7 +305,7 @@ const Post = ({ post }) => {
 					</Content>
 				</LayoutCol>
 			</LayoutRow>
-			<ReplayHelperBtn timelines={[{ name: 'post', timeline: postTimeline }]} />
+			{/* <ReplayHelperBtn timelines={[{ name: 'post', timeline: postTimeline }]} /> */}
 		</div>
 	)
 }

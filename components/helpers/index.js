@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import styles from './index.module.css'
 
 // * replay helper for tutorial
-const ReplayHelperBtn = ({ timelines = [] }) => {
+const ReplayHelperBtn = ({ timelines = [], title = '' }) => {
 	const [timelineInfo, setTimelineInfo] = useState([])
 
 	const replayAnim = useCallback(() => {
@@ -34,7 +34,7 @@ const ReplayHelperBtn = ({ timelines = [] }) => {
 				className={styles.replayBtn}
 				onClick={replayAnim}
 			>
-				re-play
+				re-play {title && title}
 			</div>
 			<div style={{ fontSize: '12px', textAlign: 'right', marginTop: '10px' }}>
 				{timelineInfo.length > 0 && (
