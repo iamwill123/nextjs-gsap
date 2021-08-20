@@ -7,7 +7,7 @@ export const Svg = ({ isRootPage }) => {
 	const svgTimeline = gsap.timeline()
 
 	useEffect(() => {
-		if (svgBackgroundRef?.current) {
+		if (svgBackgroundRef?.current && isRootPage) {
 			// * initial animation
 			svgTimeline.from(
 				'path',
@@ -15,7 +15,7 @@ export const Svg = ({ isRootPage }) => {
 				'<'
 			)
 		}
-	}, [svgBackgroundRef?.current])
+	}, [isRootPage])
 
 	useEffect(() => {
 		if (!isRootPage) {
