@@ -1,6 +1,9 @@
 # NextJS + GSAP animation starter
 Learn how to add and use GSAP animation with a NextJS app.
-*The tutorials are under development and coming this summer.*
+
+### Full tutorials
+- [Create a blog with NextJS + GSAP](https://supwill.dev/learn/nextjs-gsap/nextjs-gsap)
+
 
 ### Getting started with the repo
 - Clone the repository, the current starter is on the main branch
@@ -21,3 +24,4 @@ Learn how to add and use GSAP animation with a NextJS app.
 - [NextJS](https://nextjs.org/)
 - [Greensock animation library](https://greensock.com/)
 - [Learning NextJS by building a blog](https://nextjs.org/learn/basics/create-nextjs-app)
+- [GSAP forum thread on Vercel + GSAP shockingly-green deployment](https://greensock.com/forums/topic/26748-installing-shockingly-green-with-yarn/)
